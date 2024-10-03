@@ -11,13 +11,20 @@ export class DiscountsService {
     constructor(private readonly prisma: PrismaService) {}
 
     async getAllDiscounts() {
-        return this.prisma.discount.findMany();
+        return this.prisma.discount.findMany({
+            include: {
+                products: true,
+            },
+        });
     }
 
     async getDiscountById(id: number) {
         const discount = await this.prisma.discount.findUnique({
             where: {
                 id,
+            },
+            include: {
+                products: true,
             },
         });
 
@@ -51,6 +58,9 @@ export class DiscountsService {
                 },
                 active: true,
             },
+            include: {
+                products: true,
+            },
         });
     }
 
@@ -76,6 +86,9 @@ export class DiscountsService {
             data: {
                 active: false,
             },
+            include: {
+                products: true,
+            },
         });
     }
 
@@ -100,6 +113,9 @@ export class DiscountsService {
             },
             data: {
                 active: true,
+            },
+            include: {
+                products: true,
             },
         });
     }

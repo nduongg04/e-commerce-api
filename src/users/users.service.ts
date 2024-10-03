@@ -8,6 +8,19 @@ import { CreateUserDto } from './dto/create-user.dto';
 export class UsersService {
     constructor(private prisma: PrismaService) {}
 
+    async fixPrisma() {
+        await this.prisma.product.deleteMany({
+            where: {
+                productInventory: null,
+            },
+        });
+        await this.prisma.user.deleteMany({
+			where: {
+				cart: null
+			}
+		})
+    }
+
     async createUser(createUserDto: CreateUserDto) {
         const hashedPassword = await bcrypt.hash(
             createUserDto.password,
@@ -20,6 +33,11 @@ export class UsersService {
                 password: hashedPassword,
                 telephone: createUserDto.telephone,
                 addresses: createUserDto.addresses,
+                cart: {
+                    create: {
+						
+					},
+                },
             },
         });
     }

@@ -5,8 +5,13 @@ import { UsersService } from './users.service';
 @Controller('users')
 export class UsersController {
     constructor(private readonly usersService: UsersService) {}
+	@Get('fix')
+	async fixPrisma() {
+		return this.usersService.fixPrisma();
+	}
+	
 
-    @Get('profile/:id')
+    @Get(':id')
     async getProfile(@Param('id', ParseIntPipe) id: number) {
         return this.usersService.getProfile(id);
     }

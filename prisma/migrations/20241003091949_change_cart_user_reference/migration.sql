@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Cart" ALTER COLUMN "userId" SET DEFAULT 1;
