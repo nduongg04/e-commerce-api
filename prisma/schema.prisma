@@ -1,0 +1,110 @@
+// prisma/schema.prisma
+datasource db {
+  provider  = "postgresql"
+  url  	    = env("DATABASE_URL")
+  // uncomment next line if you use Prisma <5.10
+  // directUrl = env("DATABASE_URL_UNPOOLED")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+	id Int @default(autoincrement()) @id
+	email String @unique
+	fullName String
+	password String
+	telephone String
+	addresses String[]
+	cart Cart?
+	orders Order[]
+	createdAt DateTime @default(now())
+	updatedAt DateTime @updatedAt
+}
+
+model ProductCategory {
+	id Int @default(autoincrement()) @id
+	name String
+	description String
+	createdAt DateTime @default(now())
+	updatedAt DateTime @updatedAt
+	products Product[]
+}
+
+model Product {
+	id Int @default(autoincrement()) @id
+	name String
+	price Float
+	category ProductCategory @relation(fields: [categoryId], references: [id])
+	categoryId Int
+	discount Discount? @relation(fields: [discountId], references: [id])
+	discountId Int?
+	productInventory ProductInventory?
+	cartItem CartItem[]
+	orderItem OrderItem[]
+	createdAt DateTime @default(now())
+	updatedAt DateTime @updatedAt
+	deletedAt DateTime?
+}
+
+model ProductInventory {
+	id Int @default(autoincrement()) @id
+	product Product @relation(fields: [productId], references: [id])
+	productId Int @unique
+	quantity Int
+	createdAt DateTime @default(now())
+	updatedAt DateTime @updatedAt
+}
+
+model Discount {
+	id Int @default(autoincrement()) @id
+	name String
+	description String
+	discountPercentage Float
+	active Boolean
+	products Product[]
+	createdAt DateTime @default(now())
+	updatedAt DateTime @updatedAt
+	deletedAt DateTime?
+}
+
+model Cart {
+	id Int @default(autoincrement()) @id
+	user User @relation(fields: [userId], references: [id])
+	userId Int @unique
+	cartItems CartItem[]
+	createdAt DateTime @default(now())
+	updatedAt DateTime @updatedAt
+}
+
+model CartItem {
+	id Int @default(autoincrement()) @id
+	cart Cart @relation(fields: [cartId], references: [id])
+	cartId Int
+	product Product @relation(fields: [productId], references: [id])
+	productId Int
+	quantity Int
+	createdAt DateTime @default(now())
+	updatedAt DateTime @updatedAt
+}
+
+model Order {
+	id Int @default(autoincrement()) @id
+	user User @relation(fields: [userId], references: [id])
+	userId Int
+	orderItems OrderItem[]
+	createdAt DateTime @default(now())
+	updatedAt DateTime @updatedAt
+}
+
+model OrderItem {
+	id Int @default(autoincrement()) @id
+	order Order @relation(fields: [orderId], references: [id])
+	orderId Int
+	product Product @relation(fields: [productId], references: [id])
+	productId Int
+	quantity Int
+	createdAt DateTime @default(now())
+	updatedAt DateTime @updatedAt
+}
