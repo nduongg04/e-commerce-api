@@ -27,7 +27,8 @@ Key features include:
 - RESTful API for seamless frontend integration
 
 ## Built with
-- <a href='https://nestjs.com' target="_blank"><img alt='NestJS' src='https://img.shields.io/badge/NestJS-100000?style=for-the-badge&logo=NestJS&logoColor=F70000&labelColor=black&color=black'/></a>
+- <a href='https://nestjs.com' target="_blank"><img alt='NestJS' src='https://img.shields.io/badge/nestjs-v10-red
+'/></a>
 - <a href='https://www.prisma.io/' target="_blank"><img alt='Prisma' src='https://img.shields.io/badge/Prisma-100000?style=for-the-badge&logo=Prisma&logoColor=FFFFFF&labelColor=4687FA&color=4687FA'/></a>
 - <a href='https://jwt.io/' target="_blank"><img alt='jsonwebtokens' src='https://img.shields.io/badge/Jsonwebtoken-100000?style=for-the-badge&logo=jsonwebtokens&logoColor=FFFFFF&labelColor=FFA60D&color=FFA60D'/></a>
 
