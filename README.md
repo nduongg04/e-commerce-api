@@ -7,8 +7,7 @@
 
   <p align="center">A comprehensive e-commerce platform built with <a href="https://nestjs.com/">NestJS</a></p>
     <p align="center">
-<a href="https://nestjs.com" target="_blank"><img src="https://img.shields.io/badge/nestjs-v10-red
-" alt="NestJS Version" /></a>
+<a href="https://nestjs.com" target="_blank"><img src="https://img.shields.io/badge/nestjs-v10-red" alt="NestJS Version" /></a>
 <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
 </p>
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
