@@ -26,8 +26,7 @@ Key features include:
 - RESTful API for seamless frontend integration
 
 ## Built with
-- <a href='https://nestjs.com' target="_blank"><img alt='NestJS' src='https://img.shields.io/badge/nestjs-v10-red
-'/></a>
+- <a href='https://nestjs.com/' target="_blank"><img alt='nestjs' src='https://img.shields.io/badge/nestjs-100000?style=for-the-badge&logo=nestjs&logoColor=FFFFFF&labelColor=FF0000&color=FF0000'/></a>
 - <a href='https://www.prisma.io/' target="_blank"><img alt='Prisma' src='https://img.shields.io/badge/Prisma-100000?style=for-the-badge&logo=Prisma&logoColor=FFFFFF&labelColor=4687FA&color=4687FA'/></a>
 - <a href='https://jwt.io/' target="_blank"><img alt='jsonwebtokens' src='https://img.shields.io/badge/Jsonwebtoken-100000?style=for-the-badge&logo=jsonwebtokens&logoColor=FFFFFF&labelColor=FFA60D&color=FFA60D'/></a>
 
@@ -87,7 +86,7 @@ npm run test:cov
 
 ## Database
 <a href="https://dbdiagram.io/d/66ff75b0fb079c7ebd4d729f">
-<img src="https://i.ibb.co/wWRZKMZ/Untitled.png" alt="Database schema" width="100%" />
+<img src="https://i.postimg.cc/xTNHVpmN/Untitled.png" alt="Database schema" width="50%" />
 </a>
 
 ## License
