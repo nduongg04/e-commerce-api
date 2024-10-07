@@ -85,6 +85,7 @@ npm run test:cov
 ```
 
 ## Database
+(Click on the following image to reach the database schema)
 <a href="https://dbdiagram.io/d/66ff75b0fb079c7ebd4d729f">
 <img src="https://i.postimg.cc/xTNHVpmN/Untitled.png" alt="Database schema" width="50%" />
 </a>
