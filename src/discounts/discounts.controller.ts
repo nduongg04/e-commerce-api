@@ -39,6 +39,4 @@ export class DiscountsController {
     async getDiscountById(@Param('id', ParseIntPipe) id: number) {
         return this.discountsService.getDiscountById(id);
     }
-
-	@Get()
 }
