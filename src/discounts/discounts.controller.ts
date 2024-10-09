@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import {
 	ApiBadRequestResponse,
+	ApiBearerAuth,
 	ApiCreatedResponse,
 	ApiNotFoundResponse,
 	ApiOkResponse,
@@ -33,6 +34,7 @@ export class DiscountsController {
 	})
 	@ApiNotFoundResponse({ description: 'Some products not found' })
 	@ApiUnauthorizedResponse({ description: 'Unauthorized' })
+	@ApiBearerAuth('access')
 	async createDiscount(@Body() createDiscountDto: CreateDiscountDto) {
 		return this.discountsService.createDiscount(createDiscountDto);
 	}
@@ -44,6 +46,7 @@ export class DiscountsController {
 		isArray: true,
 	})
 	@ApiUnauthorizedResponse({ description: 'Unauthorized' })
+	@ApiBearerAuth('access')
 	async getAllDiscounts() {
 		return this.discountsService.getAllDiscounts();
 	}
@@ -56,6 +59,7 @@ export class DiscountsController {
 	@ApiNotFoundResponse({ description: 'Discount not found' })
 	@ApiUnauthorizedResponse({ description: 'Unauthorized' })
 	@ApiBadRequestResponse({ description: 'Discount already deactivated' })
+	@ApiBearerAuth('access')
 	async deactivateDiscount(@Param('id', ParseIntPipe) id: number) {
 		return this.discountsService.deactivateDiscount(id);
 	}
@@ -68,6 +72,7 @@ export class DiscountsController {
 	@ApiNotFoundResponse({ description: 'Discount not found' })
 	@ApiUnauthorizedResponse({ description: 'Unauthorized' })
 	@ApiBadRequestResponse({ description: 'Discount already activated' })
+	@ApiBearerAuth('access')
 	async activateDiscount(@Param('id', ParseIntPipe) id: number) {
 		return this.discountsService.activateDiscount(id);
 	}
@@ -80,6 +85,7 @@ export class DiscountsController {
 	@ApiNotFoundResponse({ description: 'Discount not found' })
 	@ApiNotFoundResponse({ description: 'Some products not found' })
 	@ApiUnauthorizedResponse({ description: 'Unauthorized' })
+	@ApiBearerAuth('access')
 	async applyDiscount(
 		@Param('id', ParseIntPipe) id: number,
 		@Body() applyDiscountDto: ApplyDiscountDto,
@@ -94,6 +100,7 @@ export class DiscountsController {
 	})
 	@ApiNotFoundResponse({ description: 'Discount not found' })
 	@ApiUnauthorizedResponse({ description: 'Unauthorized' })
+	@ApiBearerAuth('access')
 	async getDiscountById(@Param('id', ParseIntPipe) id: number) {
 		return this.discountsService.getDiscountById(id);
 	}

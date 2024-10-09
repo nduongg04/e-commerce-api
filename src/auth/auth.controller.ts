@@ -8,9 +8,11 @@ import {
 	UseGuards,
 } from '@nestjs/common';
 import {
+	ApiBearerAuth,
 	ApiBody,
 	ApiConflictResponse,
 	ApiHeader,
+	ApiHeaders,
 	ApiOkResponse,
 	ApiTags,
 	ApiUnauthorizedResponse,
@@ -62,10 +64,6 @@ export class AuthController {
 	@HttpCode(HttpStatus.OK)
 	@Public()
 	@UseGuards(JwtRefreshGuard)
-	@ApiHeader({
-		name: 'Authorization',
-		description: 'Refresh token',
-	})
 	@ApiUnauthorizedResponse({ description: 'Unauthorized' })
 	@ApiOkResponse({
 		description: 'Refresh token',
@@ -77,6 +75,7 @@ export class AuthController {
 			},
 		},
 	})
+	@ApiBearerAuth('refresh')
 	async refresh(@Request() req) {
 		return this.authService.refresh(req.user);
 	}

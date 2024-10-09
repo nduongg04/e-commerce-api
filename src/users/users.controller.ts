@@ -2,6 +2,7 @@ import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
 import { Public } from '../common/decorators';
 import { UsersService } from './users.service';
 import {
+	ApiBearerAuth,
 	ApiNotFoundResponse,
 	ApiOkResponse,
 	ApiTags,
@@ -21,6 +22,7 @@ export class UsersController {
 	})
 	@ApiNotFoundResponse({ description: 'User not found' })
 	@ApiUnauthorizedResponse({ description: 'Unauthorized' })
+	@ApiBearerAuth('access')
 	async getProfile(@Param('id', ParseIntPipe) id: number) {
 		return this.usersService.getProfile(id);
 	}
@@ -32,6 +34,7 @@ export class UsersController {
 		isArray: true,
 	})
 	@ApiUnauthorizedResponse({ description: 'Unauthorized' })
+	@ApiBearerAuth('access')
 	async getAllUsers() {
 		return this.usersService.getAllUsers();
 	}

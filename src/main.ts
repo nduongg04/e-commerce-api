@@ -15,13 +15,29 @@ async function bootstrap() {
 		.setTitle('E-Commerce API')
 		.setDescription('The E-Commerce API description')
 		.setVersion('1.0')
-		// .addBearerAuth()
+		.addBearerAuth({
+			type: 'http',
+			scheme: 'bearer',
+			bearerFormat: 'JWT',
+			name: 'JWT',
+			description: 'Enter Access Token',
+			in: 'header',
+		}, 'access')
+		.addBearerAuth({
+			type: 'http',
+			scheme: 'bearer',
+			bearerFormat: 'JWT',
+			name: 'JWT',
+			description: 'Enter Refresh Token',
+			in: 'header',
+		}, 'refresh')
 		.build();
 	const document = SwaggerModule.createDocument(app, config);
 	SwaggerModule.setup('api', app, document, {
 		swaggerOptions: {
 			tagsSorter: 'alpha',
 			operationsSorter: 'alpha',
+			persistAuthorization: true,
 		},
 	});
 
