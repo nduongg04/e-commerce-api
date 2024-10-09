@@ -1,9 +1,9 @@
-import { IsString } from "class-validator";
+import { IsString } from 'class-validator';
 
 export class CreateProductCategoryDto {
-    @IsString()
-    name: string;
+	@IsString()
+	name: string;
 
-    @IsString()
-    description: string;
+	@IsString()
+	description: string;
 }

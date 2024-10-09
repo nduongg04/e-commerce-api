@@ -1,23 +1,38 @@
 import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
 import { Public } from '../common/decorators';
 import { UsersService } from './users.service';
+import {
+	ApiNotFoundResponse,
+	ApiOkResponse,
+	ApiTags,
+	ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
+import { ReturnUserDto } from './dto/return-user.dto';
 
+@ApiTags('Users')
 @Controller('users')
 export class UsersController {
-    constructor(private readonly usersService: UsersService) {}
-	@Get('fix')
-	async fixPrisma() {
-		return this.usersService.fixPrisma();
+	constructor(private readonly usersService: UsersService) {}
+
+	@Get(':id')
+	@ApiOkResponse({
+		description: 'User fetched',
+		type: ReturnUserDto,
+	})
+	@ApiNotFoundResponse({ description: 'User not found' })
+	@ApiUnauthorizedResponse({ description: 'Unauthorized' })
+	async getProfile(@Param('id', ParseIntPipe) id: number) {
+		return this.usersService.getProfile(id);
 	}
-	
 
-    @Get(':id')
-    async getProfile(@Param('id', ParseIntPipe) id: number) {
-        return this.usersService.getProfile(id);
-    }
-
-    @Get()
-    async getAllUsers() {
-        return this.usersService.getAllUsers();
-    }
+	@Get()
+	@ApiOkResponse({
+		description: 'Users fetched',
+		type: ReturnUserDto,
+		isArray: true,
+	})
+	@ApiUnauthorizedResponse({ description: 'Unauthorized' })
+	async getAllUsers() {
+		return this.usersService.getAllUsers();
+	}
 }

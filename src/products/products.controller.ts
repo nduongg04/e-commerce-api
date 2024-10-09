@@ -1,55 +1,99 @@
 import {
-    Body,
-    Controller,
-    Get,
-    Param,
-    ParseIntPipe,
-    Patch,
-    Post,
+	Body,
+	Controller,
+	Get,
+	Param,
+	ParseIntPipe,
+	Patch,
+	Post,
 } from '@nestjs/common';
 import { CreateProductCategoryDto } from './dto/create-product-category.dto';
 import { CreateProductDto } from './dto/create-product.dto';
 import { ImportProductDto } from './dto/import-product.dto';
 import { ProductsService } from './products.service';
+import {
+	ApiCreatedResponse,
+	ApiNotFoundResponse,
+	ApiOkResponse,
+	ApiTags,
+	ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
+import { ReturnProductDto } from './dto/return-product.dto';
+import { ReturnProductCategoryDto } from './dto/return-product-category.dto';
 
+@ApiTags('Products')
 @Controller('products')
 export class ProductsController {
-    constructor(private readonly productsService: ProductsService) {}
+	constructor(private readonly productsService: ProductsService) {}
 
-    @Get()
-    async getAllProducts() {
-        return this.productsService.getAllProducts();
-    }
+	@Get()
+	@ApiOkResponse({
+		description: 'Products fetched',
+		type: ReturnProductDto,
+		isArray: true,
+	})
+	@ApiUnauthorizedResponse({ description: 'Unauthorized' })
+	async getAllProducts() {
+		return this.productsService.getAllProducts();
+	}
 
-    @Post('categories')
-    async createProductCategory(
-        @Body() createProductCategoryDto: CreateProductCategoryDto,
-    ) {
-        return this.productsService.createProductCategory(
-            createProductCategoryDto,
-        );
-    }
+	@Post('categories')
+	@ApiCreatedResponse({
+		description: 'Product category created',
+		type: ReturnProductCategoryDto,
+	})
+	@ApiUnauthorizedResponse({ description: 'Unauthorized' })
+	async createProductCategory(
+		@Body() createProductCategoryDto: CreateProductCategoryDto,
+	) {
+		return this.productsService.createProductCategory(
+			createProductCategoryDto,
+		);
+	}
 
-    @Get('categories')
-    async getProductCategories() {
-        return this.productsService.getProductCategories();
-    }
+	@Get('categories')
+	@ApiOkResponse({
+		description: 'Product categories fetched',
+		type: ReturnProductCategoryDto,
+		isArray: true,
+	})
+	@ApiUnauthorizedResponse({ description: 'Unauthorized' })
+	async getProductCategories() {
+		return this.productsService.getProductCategories();
+	}
 
-    @Post()
-    async createProduct(@Body() createProductDto: CreateProductDto) {
-        return this.productsService.createProduct(createProductDto);
-    }
+	@Post()
+	@ApiCreatedResponse({
+		description: 'Product created',
+		type: ReturnProductDto,
+	})
+	@ApiUnauthorizedResponse({ description: 'Unauthorized' })
+	async createProduct(@Body() createProductDto: CreateProductDto) {
+		return this.productsService.createProduct(createProductDto);
+	}
 
-    @Patch('import/:productId')
-    async importProduct(
-        @Param('productId', ParseIntPipe) productId: number,
-        @Body() importProductDto: ImportProductDto,
-    ) {
-        return this.productsService.importProduct(productId, importProductDto);
-    }
+	@Patch('import/:productId')
+	@ApiOkResponse({
+		description: 'Product imported',
+		type: ReturnProductDto,
+	})
+	@ApiNotFoundResponse({ description: 'Product not found' })
+	@ApiUnauthorizedResponse({ description: 'Unauthorized' })
+	async importProduct(
+		@Param('productId', ParseIntPipe) productId: number,
+		@Body() importProductDto: ImportProductDto,
+	) {
+		return this.productsService.importProduct(productId, importProductDto);
+	}
 
-    @Get(':id')
-    async getProductById(@Param('id', ParseIntPipe) id: number) {
-        return this.productsService.getProductById(id);
-    }
+	@Get(':id')
+	@ApiOkResponse({
+		description: 'Product fetched',
+		type: ReturnProductDto,
+	})
+	@ApiNotFoundResponse({ description: 'Product not found' })
+	@ApiUnauthorizedResponse({ description: 'Unauthorized' })
+	async getProductById(@Param('id', ParseIntPipe) id: number) {
+		return this.productsService.getProductById(id);
+	}
 }
