@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 
@@ -17,7 +17,7 @@ export class OrdersService {
             },
         });
         if (products.length !== createOrderDto.orderItems.length) {
-            throw new Error('Some products not found');
+            throw new NotFoundException('Some products not found');
         }
         let totalPrice = 0;
         products.forEach((product) => {

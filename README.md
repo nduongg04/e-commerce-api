@@ -90,6 +90,10 @@ npm run test:cov
 <img src="https://i.postimg.cc/xTNHVpmN/Untitled.png" alt="Database schema" width="50%" />
 </a>
 
+## Documentation
+Navigate to <code>/api</code> to see Swagger
+
+
 ## License
 
 This project is [MIT licensed](LICENSE).
