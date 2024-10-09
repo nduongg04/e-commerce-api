@@ -1,9 +1,8 @@
-import { IsArray, IsNotEmpty } from 'class-validator';
+import { IsArray, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class ApplyDiscountDto {
-	@IsArray({
-		each: true,
-	})
+	@IsArray()
+	@IsNumber({}, { each: true })
 	@IsNotEmpty()
 	productIds: number[];
 }

@@ -2,6 +2,7 @@ import { Body, Controller, Post, Request } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { OrdersService } from './orders.service';
 import {
+	ApiBearerAuth,
 	ApiCreatedResponse,
 	ApiNotFoundResponse,
 	ApiTags,
@@ -21,6 +22,7 @@ export class OrdersController {
 	})
 	@ApiNotFoundResponse({ description: 'Some products not found' })
 	@ApiUnauthorizedResponse({ description: 'Unauthorized' })
+	@ApiBearerAuth('access')
 	createOrder(@Body() createOrderDto: CreateOrderDto, @Request() req) {
 		return this.ordersService.createOrder(req.user.userId, createOrderDto);
 	}

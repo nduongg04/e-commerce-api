@@ -12,6 +12,7 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { ImportProductDto } from './dto/import-product.dto';
 import { ProductsService } from './products.service';
 import {
+	ApiBearerAuth,
 	ApiCreatedResponse,
 	ApiNotFoundResponse,
 	ApiOkResponse,
@@ -33,6 +34,7 @@ export class ProductsController {
 		isArray: true,
 	})
 	@ApiUnauthorizedResponse({ description: 'Unauthorized' })
+	@ApiBearerAuth('access')
 	async getAllProducts() {
 		return this.productsService.getAllProducts();
 	}
@@ -43,6 +45,7 @@ export class ProductsController {
 		type: ReturnProductCategoryDto,
 	})
 	@ApiUnauthorizedResponse({ description: 'Unauthorized' })
+	@ApiBearerAuth('access')
 	async createProductCategory(
 		@Body() createProductCategoryDto: CreateProductCategoryDto,
 	) {
@@ -58,6 +61,7 @@ export class ProductsController {
 		isArray: true,
 	})
 	@ApiUnauthorizedResponse({ description: 'Unauthorized' })
+	@ApiBearerAuth('access')
 	async getProductCategories() {
 		return this.productsService.getProductCategories();
 	}
@@ -68,6 +72,7 @@ export class ProductsController {
 		type: ReturnProductDto,
 	})
 	@ApiUnauthorizedResponse({ description: 'Unauthorized' })
+	@ApiBearerAuth('access')
 	async createProduct(@Body() createProductDto: CreateProductDto) {
 		return this.productsService.createProduct(createProductDto);
 	}
@@ -79,6 +84,7 @@ export class ProductsController {
 	})
 	@ApiNotFoundResponse({ description: 'Product not found' })
 	@ApiUnauthorizedResponse({ description: 'Unauthorized' })
+	@ApiBearerAuth('access')
 	async importProduct(
 		@Param('productId', ParseIntPipe) productId: number,
 		@Body() importProductDto: ImportProductDto,
@@ -93,6 +99,7 @@ export class ProductsController {
 	})
 	@ApiNotFoundResponse({ description: 'Product not found' })
 	@ApiUnauthorizedResponse({ description: 'Unauthorized' })
+	@ApiBearerAuth('access')
 	async getProductById(@Param('id', ParseIntPipe) id: number) {
 		return this.productsService.getProductById(id);
 	}

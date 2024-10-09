@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, Post, Request } from '@nestjs/common';
 import {
+	ApiBearerAuth,
 	ApiCreatedResponse,
 	ApiOkResponse,
 	ApiTags,
@@ -21,6 +22,7 @@ export class CartController {
 		type: ReturnCartDto,
 	})
 	@ApiUnauthorizedResponse({ description: 'Unauthorized' })
+	@ApiBearerAuth('access')
 	async getCart(@Request() req) {
 		return this.cartService.getCart(+req.user.userId);
 	}
@@ -31,6 +33,7 @@ export class CartController {
 		type: ReturnCartDto,
 	})
 	@ApiUnauthorizedResponse({ description: 'Unauthorized' })
+	@ApiBearerAuth('access')
 	async addToCart(@Request() req, @Body() addToCartDto: AddToCartDto) {
 		return this.cartService.addToCart(req.user.userId, addToCartDto);
 	}
@@ -42,6 +45,7 @@ export class CartController {
 		type: ReturnCartDto,
 	})
 	@ApiUnauthorizedResponse({ description: 'Unauthorized' })
+	@ApiBearerAuth('access')
 	async removeFromCart(
 		@Request() req,
 		@Body() removeFromCartDto: RemoveFromCartDto,
