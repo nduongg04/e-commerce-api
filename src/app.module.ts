@@ -10,20 +10,24 @@ import { ProductsModule } from './products/products.module';
 import { DiscountsModule } from './discounts/discounts.module';
 import { CartModule } from './cart/cart.module';
 import { OrdersModule } from './orders/orders.module';
+import { TasksModule } from './tasks/tasks.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
-    imports: [
-        UsersModule,
-        ConfigModule.forRoot(),
-        PrismaModule,
-        AuthModule,
-        TokensModule,
-        ProductsModule,
-        DiscountsModule,
-        CartModule,
-        OrdersModule,
-    ],
-    controllers: [AppController],
-    providers: [AppService],
+	imports: [
+		UsersModule,
+		ConfigModule.forRoot(),
+		PrismaModule,
+		AuthModule,
+		TokensModule,
+		ProductsModule,
+		DiscountsModule,
+		CartModule,
+		OrdersModule,
+		TasksModule,
+		ScheduleModule.forRoot(),
+	],
+	controllers: [AppController],
+	providers: [AppService],
 })
 export class AppModule {}
