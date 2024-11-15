@@ -1,5 +1,3 @@
-import { Product } from '@prisma/client';
-
 export class ReturnProductDto {
 	id: number;
 	createdAt: Date;

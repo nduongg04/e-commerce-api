@@ -1,12 +1,10 @@
-import { CartItem } from '@prisma/client';
-
 export class ReturnCartItemDto {
 	id: number;
-    createdAt: Date;
-    updatedAt: Date;
-    cartId: number;
-    productId: number;
-    quantity: number;
+	createdAt: Date;
+	updatedAt: Date;
+	cartId: number;
+	productId: number;
+	quantity: number;
 }
 
 export class ReturnCartDto {

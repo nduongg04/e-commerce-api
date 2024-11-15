@@ -1,5 +1,4 @@
 import { ReturnProductDto } from '@/src/products/dto/return-product.dto';
-import { Discount } from '@prisma/client';
 
 export class ReturnDiscountDto {
 	description: string;
