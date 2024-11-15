@@ -11,19 +11,17 @@ import {
 	ApiBearerAuth,
 	ApiBody,
 	ApiConflictResponse,
-	ApiHeader,
-	ApiHeaders,
 	ApiOkResponse,
 	ApiTags,
 	ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { Public } from '../common/decorators';
 import { CreateUserDto } from '../users/dto/create-user.dto';
+import { ReturnUserDto } from '../users/dto/return-user.dto';
 import { AuthService } from './auth.service';
 import { ReturnLoginDto } from './dto/return-login.dto';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 import { LocalGuard } from './guards/local.guard';
-import { ReturnUserDto } from '../users/dto/return-user.dto';
 
 @ApiTags('Auth')
 @Controller('auth')

@@ -3,6 +3,9 @@
 /node_modules
 /build
 
+# act
+**/.secrets
+
 # Logs
 logs
 *.log
