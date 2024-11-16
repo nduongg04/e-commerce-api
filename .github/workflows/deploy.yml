@@ -60,6 +60,6 @@ jobs:
             cd ~/app
             
             # Pull the latest image and restart the services
-            docker pull $ECR_REGISTRY/$ECR_REGISTRY_ID/$ECR_REPOSITORY:$IMAGE_TAG
+            docker pull $ECR_REGISTRY/$ECR_REGISTRY_ID/$ECR_REPOSITORY
             docker compose down
             docker compose up -d
