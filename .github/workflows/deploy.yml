@@ -59,8 +59,7 @@ jobs:
             # Navigate to the project directory
             cd ~/app
             
-
             # Pull the latest image and restart the services
-            docker pull public.ecr.aws/${{ secrets.ECR_REGISTRY_ID }}/${{ secrets.ECR_REPOSITORY_NAME }}
+            docker pull $ECR_REGISTRY/$ECR_REGISTRY_ID/$ECR_REPOSITORY:$IMAGE_TAG
             docker compose down
             docker compose up -d
