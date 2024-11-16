@@ -46,7 +46,6 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ steps.login-ecr-public.outputs.registry }}
-            docker pull ${{ steps.login-ecr-public.outputs.registry }}/${{ secrets.ECR_REGISTRY_ID }}/${{ secrets.ECR_REPOSITORY_NAME }}:latest
+            docker pull public.ecr.aws/${{ secrets.ECR_REGISTRY_ID }}/${{ secrets.ECR_REPOSITORY_NAME }}:latest
             docker compose down
             docker compose up -d
