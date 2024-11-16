@@ -51,6 +51,10 @@ jobs:
 
       - name: Deploy to EC2
         uses: appleboy/ssh-action@master
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
+          ECR_REGISTRY_ID: ${{ secrets.ECR_REGISTRY_ID }}
+          ECR_REPOSITORY_NAME: ${{ secrets.ECR_REPOSITORY_NAME }}
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
@@ -60,6 +64,6 @@ jobs:
             cd ~/app
             
             # Pull the latest image and restart the services
-            docker pull $ECR_REGISTRY/$ECR_REGISTRY_ID/$ECR_REPOSITORY
+            docker pull $ECR_REGISTRY/$ECR_REGISTRY_ID/$ECR_REPOSITORY_NAME:latest
             docker compose down
             docker compose up -d
