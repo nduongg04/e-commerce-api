@@ -1,6 +1,6 @@
 services:
   server:
-    image: ${ECR_REGISTRY}/${ECR_REPOSITORY}:latest
+    image: public.ecr.aws/y2x6m4d2/project/nestjs-e-commerce:400e6d2a7a5fa3dfdf8bbb80408ae082fe283c15:latest
     env_file: ".env"
     environment:
       NODE_ENV: production
