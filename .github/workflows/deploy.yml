@@ -33,10 +33,10 @@ jobs:
       #     aws-region: ${{ secrets.AWS_REGION }}
 
       # - name: Login to Amazon ECR
-      #   id: login-ecr-public
-      #   uses: aws-actions/amazon-ecr-login@v2
-      #   with:
-      #     registry-type: public
+        id: login-ecr-public
+        uses: aws-actions/amazon-ecr-login@v2
+        with:
+          registry-type: public
 
       # - name: Build and push Docker image
       #   env:
@@ -50,16 +50,13 @@ jobs:
       #     docker push $ECR_REGISTRY/$ECR_REGISTRY_ID/$ECR_REPOSITORY:latest
 
       - name: Deploy to EC2
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
-          ECR_REGISTRY_ID: ${{ secrets.ECR_REGISTRY_ID }}
-          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY_NAME }}
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
-          envs:
-            ECR_REGISTRY, ECR_REGISTRY_ID, ECR_REPOSITORY
           script: |
-            echo $ECR_REGISTRY
+            cd ~/app
+            docker pull public.ecr.aws/y2x6m4d2/project/nestjs-e-commerce:latest
+            docker compose down
+            docker compose up -d
