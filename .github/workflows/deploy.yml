@@ -54,11 +54,13 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
           ECR_REGISTRY_ID: ${{ secrets.ECR_REGISTRY_ID }}
+          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY_NAME }}
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             cd ~/app
-            echo "$ECR_REGISTRY/$ECR_REGISTRY_ID/$ECR_REPOSITORY:latest" > test.txt
+            IMAGE_TAG="$ECR_REGISTRY/$ECR_REGISTRY_ID/$ECR_REPOSITORY:latest"
+            echo "$IMAGE_TAG" > test.txt
             cat test.txt
