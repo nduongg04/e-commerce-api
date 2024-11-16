@@ -47,10 +47,10 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             # Transfer the compose.yaml file to the EC2 instance
-            scp -i ${{ secrets.EC2_SSH_KEY }} compose.yaml ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/path/to/your/project
+            scp -i ${{ secrets.EC2_SSH_KEY }} compose.yaml ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:~/app
 
             # Navigate to the project directory
-            cd /path/to/your/project
+            cd ~/app
 
             # Pull the latest image and restart the services
             docker pull public.ecr.aws/${{ secrets.ECR_REGISTRY_ID }}/${{ secrets.ECR_REPOSITORY_NAME }}:latest
