@@ -15,13 +15,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Send compose.yaml to EC2
+      - name: Send compose.yaml to EC2 and create env file
         run: |
           echo "${{ secrets.EC2_SSH_KEY }}" > ~/ec2_key.pem
           chmod 600 ~/ec2_key.pem
           mkdir -p ~/.ssh
           ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
           scp -i ~/ec2_key.pem compose.yaml ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:~/app
+          echo "${{secrets.ENV_FILE_CONTENT}}" > .env
+          scp -i ~/ec2_key.pem .env ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:~/app
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -56,6 +58,7 @@ jobs:
           script: |
             # Navigate to the project directory
             cd ~/app
+            
 
             # Pull the latest image and restart the services
             docker pull public.ecr.aws/${{ secrets.ECR_REGISTRY_ID }}/${{ secrets.ECR_REPOSITORY_NAME }}:latest
