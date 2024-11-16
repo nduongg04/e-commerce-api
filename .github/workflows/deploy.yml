@@ -25,29 +25,29 @@ jobs:
           echo "${{secrets.ENV_FILE_CONTENT}}" > .env
           scp -i ~/ec2_key.pem .env ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:~/app
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+      # - name: Configure AWS credentials
+      #   uses: aws-actions/configure-aws-credentials@v4
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Login to Amazon ECR
-        id: login-ecr-public
-        uses: aws-actions/amazon-ecr-login@v2
-        with:
-          registry-type: public
+      # - name: Login to Amazon ECR
+      #   id: login-ecr-public
+      #   uses: aws-actions/amazon-ecr-login@v2
+      #   with:
+      #     registry-type: public
 
-      - name: Build and push Docker image
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
-          ECR_REGISTRY_ID: ${{ secrets.ECR_REGISTRY_ID }}
-          IMAGE_TAG: ${{ github.sha }}
-        run: |
-          docker build -t $ECR_REGISTRY/$ECR_REGISTRY_ID/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REGISTRY_ID/$ECR_REPOSITORY:$IMAGE_TAG
-          docker tag $ECR_REGISTRY/$ECR_REGISTRY_ID/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REGISTRY_ID/$ECR_REPOSITORY:latest
-          docker push $ECR_REGISTRY/$ECR_REGISTRY_ID/$ECR_REPOSITORY:latest
+      # - name: Build and push Docker image
+      #   env:
+      #     ECR_REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
+      #     ECR_REGISTRY_ID: ${{ secrets.ECR_REGISTRY_ID }}
+      #     IMAGE_TAG: ${{ github.sha }}
+      #   run: |
+      #     docker build -t $ECR_REGISTRY/$ECR_REGISTRY_ID/$ECR_REPOSITORY:$IMAGE_TAG .
+      #     docker push $ECR_REGISTRY/$ECR_REGISTRY_ID/$ECR_REPOSITORY:$IMAGE_TAG
+      #     docker tag $ECR_REGISTRY/$ECR_REGISTRY_ID/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REGISTRY_ID/$ECR_REPOSITORY:latest
+      #     docker push $ECR_REGISTRY/$ECR_REGISTRY_ID/$ECR_REPOSITORY:latest
 
       - name: Deploy to EC2
         uses: appleboy/ssh-action@master
@@ -56,11 +56,7 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            # Navigate to the project directory
             cd ~/app
-            
-
-            # Pull the latest image and restart the services
-            docker pull public.ecr.aws/${{ secrets.ECR_REGISTRY_ID }}/${{ secrets.ECR_REPOSITORY_NAME }}:latest
+            docker pull public.ecr.aws/y2x6m4d2/project/nestjs-e-commerce:latest
             docker compose down
             docker compose up -d
