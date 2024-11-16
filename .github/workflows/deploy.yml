@@ -60,5 +60,5 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            export ECR_REGISTRY=$ECR_REGISTRY
+            export ECR_REGISTRY=${{ steps.login-ecr-public.outputs.registry }}
             echo $ECR_REGISTRY
