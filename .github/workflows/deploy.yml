@@ -61,6 +61,6 @@ jobs:
             
 
             # Pull the latest image and restart the services
-            docker pull public.ecr.aws/${{ secrets.ECR_REGISTRY_ID }}/${{ secrets.ECR_REPOSITORY_NAME }}:latest
+            docker pull public.ecr.aws/${{ secrets.ECR_REGISTRY_ID }}/${{ secrets.ECR_REPOSITORY_NAME }}
             docker compose down
             docker compose up -d
