@@ -46,8 +46,12 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
+            # Write the SSH key to a file
+            echo "${{ secrets.EC2_SSH_KEY }}" > ~/ec2_key.pem
+            chmod 600 ~/ec2_key.pem
+
             # Transfer the compose.yaml file to the EC2 instance
-            scp -i ${{ secrets.EC2_SSH_KEY }} compose.yaml ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:~/app
+            scp -i ~/ec2_key.pem compose.yaml ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:~/app
 
             # Navigate to the project directory
             cd ~/app
