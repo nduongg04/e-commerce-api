@@ -13,6 +13,12 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
+<p align="center" style="font-size: 20px">
+	<a href="https://nestjs-e-commerce.duong.website/api">Demo</a>
+</p>
+
+
+
 ## Description
 
 This project is a robust e-commerce solution developed using the [Nest](https://github.com/nestjs/nest) framework. It provides a scalable and efficient backend for managing online stores, handling product catalogs, user authentication, shopping carts, order processing, and payment integration. Leveraging NestJS's modular architecture, this platform offers a solid foundation for building feature-rich e-commerce applications with TypeScript.
